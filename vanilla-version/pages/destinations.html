@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinații - MadaTrips</title>
+    <meta name="description" content="Descoperă destinațiile noastre extraordinare. De la Carpații Românești la Coasta Amalfi, oferim experiențe unice în întreaga lume.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/madatrips-logo.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <style>
+        .destination-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .destination-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .destination-content {
+            padding: 1.5rem;
+        }
+        
+        .destination-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        
+        .destination-location {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .destination-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        .destination-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .destination-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #059669;
+        }
+        
+        .destination-duration {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        
+        .destination-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stars {
+            color: #fbbf24;
+        }
+        
+        .rating-text {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .search-container {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto 2rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <!-- Logo -->
+                <a href="../index.html" class="nav-logo">
+                    <img src="../assets/madatrips-logo.svg" alt="MadaTrips Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="nav-menu">
+                    <a href="../index.html" class="nav-item">Acasă</a>
+                    <a href="about.html" class="nav-item">Despre Noi</a>
+                    <a href="destinations.html" class="nav-item active">Destinații</a>
+                    <a href="gallery.html" class="nav-item">Galerie</a>
+                    <a href="contact.html" class="nav-item">Contact</a>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="nav-actions">
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn btn btn-ghost" aria-label="Toggle mobile menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12h18M3 6h18M3 18h18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu">
+                <a href="../index.html" class="nav-item">Acasă</a>
+                <a href="about.html" class="nav-item">Despre Noi</a>
+                <a href="destinations.html" class="nav-item active">Destinații</a>
+                <a href="gallery.html" class="nav-item">Galerie</a>
+                <a href="contact.html" class="nav-item">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen" style="padding-top: 4rem;">
+        <!-- Hero Section -->
+        <section class="hero" style="height: 50vh;">
+            <div class="hero-bg">
+                <img src="../assets/destination-mountains.jpg" alt="Destinații MadaTrips">
+                <div class="hero-overlay"></div>
+            </div>
+
+            <div class="hero-content">
+                <div class="container">
+                    <h1 class="hero-title">Destinațiile Noastre</h1>
+                    <p class="hero-subtitle">
+                        Descoperă lumea prin experiențele noastre unice și memorabile
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filter Section -->
+        <section class="py-12">
+            <div class="container">
+                <!-- Search -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Caută destinații..." id="searchInput">
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Toate</button>
+                    <button class="filter-btn" data-filter="Munte">Munte</button>
+                    <button class="filter-btn" data-filter="Oraș">Oraș</button>
+                    <button class="filter-btn" data-filter="Natură">Natură</button>
+                    <button class="filter-btn" data-filter="Desert">Desert</button>
+                    <button class="filter-btn" data-filter="Coastă">Coastă</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destinations Grid -->
+        <section class="py-12">
+            <div class="container">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="destinationsGrid">
+                    <!-- Destination cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MadaTrips</h3>
+                    <p>Descoperă lumea cu noi și creează amintiri de neuitat. Oferim cele mai bune experiențe de călătorie personalizate după nevoile tale.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Link-uri Rapide</h3>
+                    <p><a href="about.html">Despre Noi</a></p>
+                    <p><a href="destinations.html">Destinații</a></p>
+                    <p><a href="gallery.html">Galerie</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@madatrips.ro</p>
+                    <p>Telefon: +40 123 456 789</p>
+                    <p>Adresă: București, România</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MadaTrips. Toate drepturile rezervate.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Buttons -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn scroll-to-top" style="display: none;" aria-label="Scroll to top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </button>
+        <button class="scroll-btn scroll-to-bottom" style="display: none;" aria-label="Scroll to bottom">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+        // Destinations data
+        const destinations = [
+            {
+                id: 'carpati-romania',
+                title: 'Carpații Românești',
+                location: 'România',
+                description: 'Descoperă frumusețea sălbatică a Carpaților, cu peisaje montane spectaculoase, păduri seculare și tradițiile autentice românești.',
+                image: '../assets/destination-mountains.jpg',
+                price: '€799',
+                duration: '6 zile',
+                type: 'Munte',
+                rating: 4.8,
+                bestTime: 'Mai - Octombrie',
+                activities: ['Drumeții', 'Schi', 'Turism Rural', 'Fotografie']
+            },
+            {
+                id: 'bucuresti-cultural',
+                title: 'București Cultural',
+                location: 'România',
+                description: 'Explorează capitala României, cu arhitectura sa eclectică, muzeele fascinante și viața de noapte vibrantă.',
+                image: '../assets/destination-city.jpg',
+                price: '€599',
+                duration: '4 zile',
+                type: 'Oraș',
+                rating: 4.6,
+                bestTime: 'Aprilie - Octombrie',
+                activities: ['Turism Cultural', 'Gastronomie', 'Istorie', 'Artă']
+            },
+            {
+                id: 'delta-dunarii',
+                title: 'Delta Dunării',
+                location: 'România',
+                description: 'O aventură unică în Delta Dunării, rezervația biosferei cu cea mai bogată biodiversitate din Europa.',
+                image: '../assets/destination-jungle.jpg',
+                price: '€899',
+                duration: '5 zile',
+                type: 'Natură',
+                rating: 4.7,
+                bestTime: 'Mai - Septembrie',
+                activities: ['Birdwatching', 'Pescuit', 'Plimbări cu Barca', 'Fotografie']
+            },
+            {
+                id: 'sahara-desert',
+                title: 'Sahara Magică',
+                location: 'Maroc',
+                description: 'Experimentează magia deșertului Sahara, cu dunele sale spectaculoase și apusurile memorabile.',
+                image: '../assets/destination-desert.jpg',
+                price: '€1,299',
+                duration: '6 zile',
+                type: 'Desert',
+                rating: 4.6,
+                bestTime: 'Octombrie - Aprilie',
+                activities: ['Safari pe Cămile', 'Camping', 'Astronomie', 'Fotografie']
+            },
+            {
+                id: 'litoral-romanesc',
+                title: 'Litoralul Românesc',
+                location: 'România',
+                description: 'Relaxează-te pe litoralul Mării Negre, cu plajele sale largi, stațiunile moderne și tradițiile pescărești.',
+                image: '../assets/destination-coast.jpg',
+                price: '€699',
+                duration: '7 zile',
+                type: 'Coastă',
+                rating: 4.5,
+                bestTime: 'Iunie - Septembrie',
+                activities: ['Plajă', 'Sporturi Nautice', 'Gastronomie', 'Relaxare']
+            },
+            {
+                id: 'alpi-swiss',
+                title: 'Alpii Elvețieni',
+                location: 'Elveția',
+                description: 'Explorează majestatea alpilor elvețieni, unde vârfurile înzăpezite se întind spre cer și pășunile verzi oferă o priveliște de vis.',
+                image: '../assets/destination-mountains.jpg',
+                price: '€1,899',
+                duration: '7 zile',
+                type: 'Munte',
+                rating: 4.9,
+                bestTime: 'Iunie - Septembrie',
+                activities: ['Drumeții', 'Schi', 'Escaladă', 'Fotografie']
+            },
+            {
+                id: 'praga-istoric',
+                title: 'Praga Istorică',
+                location: 'Republica Cehă',
+                description: 'Descoperă farmecul medieval al Pragăi, cu străzile sale pavate, arhitectura gotică și atmosfera romantică.',
+                image: '../assets/destination-city.jpg',
+                price: '€899',
+                duration: '5 zile',
+                type: 'Oraș',
+                rating: 4.8,
+                bestTime: 'Aprilie - Octombrie',
+                activities: ['Turism Cultural', 'Gastronomie', 'Istorie', 'Artă']
+            },
+            {
+                id: 'coasta-amalfi',
+                title: 'Coasta Amalfi',
+                location: 'Italia',
+                description: 'Relaxează-te pe minunata Coastă Amalfi, cu satele sale pitorești, apa cristalină și gastronomia rafată.',
+                image: '../assets/destination-coast.jpg',
+                price: '€1,699',
+                duration: '8 zile',
+                type: 'Coastă',
+                rating: 4.9,
+                bestTime: 'Mai - Septembrie',
+                activities: ['Plajă', 'Gastronomie', 'Ture cu Barca', 'Relaxare']
+            }
+        ];
+
+        // Initialize destinations page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderDestinations(destinations);
+            initializeFilters();
+            initializeSearch();
+        });
+
+        function renderDestinations(destinationsToRender) {
+            const grid = document.getElementById('destinationsGrid');
+            grid.innerHTML = '';
+
+            destinationsToRender.forEach((destination, index) => {
+                const card = createDestinationCard(destination, index);
+                grid.appendChild(card);
+            });
+        }
+
+        function createDestinationCard(destination, index) {
+            const card = document.createElement('div');
+            card.className = 'destination-card animate-on-scroll';
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.onclick = () => goToDestination(destination.id);
+
+            const stars = '★'.repeat(Math.floor(destination.rating)) + '☆'.repeat(5 - Math.floor(destination.rating));
+
+            card.innerHTML = `
+                <img src="${destination.image}" alt="${destination.title}" class="destination-image">
+                <div class="destination-content">
+                    <h3 class="destination-title">${destination.title}</h3>
+                    <div class="destination-location">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        ${destination.location}
+                    </div>
+                    <p class="destination-description">${destination.description}</p>
+                    <div class="destination-rating">
+                        <span class="stars">${stars}</span>
+                        <span class="rating-text">${destination.rating}</span>
+                    </div>
+                    <div class="destination-meta">
+                        <span class="destination-price">${destination.price}</span>
+                        <span class="destination-duration">${destination.duration}</span>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="event.stopPropagation(); goToDestination('${destination.id}')">
+                        Vezi Detalii
+                    </button>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function initializeFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    filterDestinations(filter);
+                });
+            });
+        }
+
+        function filterDestinations(filter) {
+            let filteredDestinations = destinations;
+            
+            if (filter !== 'all') {
+                filteredDestinations = destinations.filter(dest => dest.type === filter);
+            }
+            
+            renderDestinations(filteredDestinations);
+        }
+
+        function initializeSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                
+                if (query.length > 2) {
+                    const filteredDestinations = destinations.filter(dest => 
+                        dest.title.toLowerCase().includes(query) ||
+                        dest.location.toLowerCase().includes(query) ||
+                        dest.description.toLowerCase().includes(query)
+                    );
+                    renderDestinations(filteredDestinations);
+                } else if (query.length === 0) {
+                    // Reset to show all destinations
+                    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+                    filterDestinations(activeFilter);
+                }
+            });
+        }
+
+        function goToDestination(destinationId) {
+            window.location.href = `destination-detail.html?id=${destinationId}`;
+        }
+    </script>
+</body>
+</html>
+
+

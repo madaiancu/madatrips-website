@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+    <metiat charset="UTF-8">
+    <meta osname="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MadaTrips - Descoperă Lumea Cu Noi</title>
+    <meta name="description" content="Aventuri de neuitat te așteaptă. Explorează destinații extraordinare și creează amintiri pentru o viață cu MadaTrips.">
+    <meta name="keywords" content="călătorii, destinații, vacanțe, aventură, turism, România, Europa">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/madatrips-logo.svg">
+    <link rel="icon" type="image/png" href="assets/favicon-32x32.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Additional CSS for notifications -->
+    <style>
+        .notification-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-result-item {
+            padding: 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background-color 0.2s ease;
+        }
+        
+        .search-result-item:hover {
+            background-color: #f9fafb;
+        }
+        
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .search-result-item h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .search-result-item p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .search-no-results {
+            padding: 1rem;
+            text-align: center;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <!-- Logo -->
+                <a href="index.html" class="nav-logo">
+                    <img src="assets/madatrips-logo.svg" alt="MadaTrips Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-item active">Acasă</a>
+                    <a href="pages/about.html" class="nav-item">Despre Noi</a>
+                    <a href="pages/destinations.html" class="nav-item">Destinații</a>
+                    <a href="pages/gallery.html" class="nav-item">Galerie</a>
+                    <a href="pages/contact.html" class="nav-item">Contact</a>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="nav-actions">
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn btn btn-ghost" aria-label="Toggle mobile menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12h18M3 6h18M3 18h18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu">
+                <a href="index.html" class="nav-item active">Acasă</a>
+                <a href="pages/about.html" class="nav-item">Despre Noi</a>
+                <a href="pages/destinations.html" class="nav-item">Destinații</a>
+                <a href="pages/gallery.html" class="nav-item">Galerie</a>
+                <a href="pages/contact.html" class="nav-item">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg">
+                <img src="assets/hero-beach.jpg" alt="Beautiful tropical beach paradise">
+                <div class="hero-overlay"></div>
+            </div>
+
+            <div class="hero-content">
+                <div class="container">
+                    <h1 class="hero-title">
+                        Descoperă Lumea
+                        <br>
+                        <span class="text-gradient">Cu MadaTrips</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Aventuri de neuitat te așteaptă. Explorează destinații extraordinare și creează amintiri pentru o viață.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="pages/destinations.html" class="btn btn-primary btn-lg">
+                            Explorează Destinații
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <a href="pages/contact.html" class="btn btn-outline btn-lg" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px); border-color: white; color: white;">
+                            Contactează-ne
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="features-header animate-on-scroll">
+                    <h2 class="features-title">De Ce Să Ne Alegi</h2>
+                    <p class="features-subtitle">
+                        Oferim cele mai bune experiențe de călătorie, personalizate după nevoile tale
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card animate-on-scroll" style="animation-delay: 0.1s;">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Destinații Unice</h3>
+                        <p class="feature-description">Peste 100 de destinații spectaculoase în întreaga lume</p>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll" style="animation-delay: 0.2s;">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Planificare Ușoară</h3>
+                        <p class="feature-description">Rezervă în câteva click-uri, totul online</p>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll" style="animation-delay: 0.3s;">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Experiențe Premium</h3>
+                        <p class="feature-description">Calitate superioară și servicii de lux</p>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll" style="animation-delay: 0.4s;">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Ghizi Experți</h3>
+                        <p class="feature-description">Profesioniști cu ani de experiență</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Destinations Carousel -->
+        <section class="destinations">
+            <div class="container">
+                <div class="destinations-header animate-on-scroll">
+                    <h2 class="destinations-title">Destinații Populare</h2>
+                    <p class="destinations-subtitle">
+                        Cele mai apreciate destinații ale clienților noștri
+                    </p>
+                </div>
+
+                <div class="carousel animate-on-scroll">
+                    <div class="carousel-container">
+                        <div class="carousel-slide active">
+                            <img src="assets/destination-mountains.jpg" alt="Alpii Elvețieni">
+                            <div class="carousel-content">
+                                <h3 class="carousel-title">Alpii Elvețieni</h3>
+                                <p class="carousel-description">Aventuri alpine de neuitat</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/destination-city.jpg" alt="Praga Istorică">
+                            <div class="carousel-content">
+                                <h3 class="carousel-title">Praga Istorică</h3>
+                                <p class="carousel-description">Orașul celor o sută de turnuri</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/destination-jungle.jpg" alt="Amazon Exotic">
+                            <div class="carousel-content">
+                                <h3 class="carousel-title">Amazon Exotic</h3>
+                                <p class="carousel-description">Explorează jungla amazoniană</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation -->
+                        <button class="carousel-nav carousel-prev">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 18l-6-6 6-6"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-nav carousel-next">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dots -->
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active"></button>
+                            <button class="carousel-dot"></button>
+                            <button class="carousel-dot"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="pages/destinations.html" class="btn btn-outline btn-lg">
+                        Vezi Toate Destinațiile
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video">
+            <div class="container">
+                <div class="video-header animate-on-scroll">
+                    <h2 class="video-title">Experiența MadaTrips</h2>
+                    <p class="video-subtitle">
+                        Descoperă poveștile clienților noștri fericiți
+                    </p>
+                </div>
+
+                <div class="video-container animate-on-scroll">
+                    <div class="video-wrapper">
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            src="https://www.youtube.com/embed/qVPRnhOa47c?autoplay=1&mute=1&loop=1&playlist=qVPRnhOa47c&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+                            title="MadaTrips Background Video"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content animate-on-scroll">
+                    <h2 class="cta-title">Gata Pentru Aventură?</h2>
+                    <p class="cta-subtitle">
+                        Începe călătoria ta astăzi și creează amintiri de neuitat
+                    </p>
+                    <a href="pages/contact.html" class="btn btn-lg" style="background: white; color: hsl(var(--primary)); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                        Contactează-ne Acum
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MadaTrips</h3>
+                    <p>Descoperă lumea cu noi și creează amintiri de neuitat. Oferim cele mai bune experiențe de călătorie personalizate după nevoile tale.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Link-uri Rapide</h3>
+                    <p><a href="pages/about.html">Despre Noi</a></p>
+                    <p><a href="pages/destinations.html">Destinații</a></p>
+                    <p><a href="pages/gallery.html">Galerie</a></p>
+                    <p><a href="pages/contact.html">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@madatrips.ro</p>
+                    <p>Telefon: +40 123 456 789</p>
+                    <p>Adresă: București, România</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MadaTrips. Toate drepturile rezervate.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Buttons -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn scroll-to-top" style="display: none;" aria-label="Scroll to top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </button>
+        <button class="scroll-btn scroll-to-bottom" style="display: none;" aria-label="Scroll to bottom">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - MadaTrips</title>
+    <meta name="description" content="Descoperă frumusețea destinațiilor noastre prin galeria de fotografii. De la Carpații Românești la Coasta Amalfi, fiecare imagine spune o poveste.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/madatrips-logo.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        .gallery-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery-location {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 0.5rem;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .lightbox-prev {
+            left: -4rem;
+        }
+        
+        .lightbox-next {
+            right: -4rem;
+        }
+        
+        .lightbox-info {
+            position: absolute;
+            bottom: -3rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .lightbox-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .lightbox-location {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <!-- Logo -->
+                <a href="../index.html" class="nav-logo">
+                    <img src="../assets/madatrips-logo.svg" alt="MadaTrips Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="nav-menu">
+                    <a href="../index.html" class="nav-item">Acasă</a>
+                    <a href="about.html" class="nav-item">Despre Noi</a>
+                    <a href="destinations.html" class="nav-item">Destinații</a>
+                    <a href="gallery.html" class="nav-item active">Galerie</a>
+                    <a href="contact.html" class="nav-item">Contact</a>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="nav-actions">
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn btn btn-ghost" aria-label="Toggle mobile menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12h18M3 6h18M3 18h18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu">
+                <a href="../index.html" class="nav-item">Acasă</a>
+                <a href="about.html" class="nav-item">Despre Noi</a>
+                <a href="destinations.html" class="nav-item">Destinații</a>
+                <a href="gallery.html" class="nav-item active">Galerie</a>
+                <a href="contact.html" class="nav-item">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen" style="padding-top: 4rem;">
+        <!-- Hero Section -->
+        <section class="hero" style="height: 50vh;">
+            <div class="hero-bg">
+                <img src="../assets/hero-beach.jpg" alt="Galerie MadaTrips">
+                <div class="hero-overlay"></div>
+            </div>
+
+            <div class="hero-content">
+                <div class="container">
+                    <h1 class="hero-title">Galerie Foto</h1>
+                    <p class="hero-subtitle">
+                        Descoperă frumusețea destinațiilor noastre prin ochii clienților noștri
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="py-12">
+            <div class="container">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Toate</button>
+                    <button class="filter-btn" data-filter="Munte">Munte</button>
+                    <button class="filter-btn" data-filter="Oraș">Oraș</button>
+                    <button class="filter-btn" data-filter="Natură">Natură</button>
+                    <button class="filter-btn" data-filter="Desert">Desert</button>
+                    <button class="filter-btn" data-filter="Coastă">Coastă</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="py-12">
+            <div class="container">
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Gallery items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+            <img class="lightbox-image" id="lightboxImage" alt="">
+            <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+            <div class="lightbox-info">
+                <div class="lightbox-title" id="lightboxTitle"></div>
+                <div class="lightbox-location" id="lightboxLocation"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MadaTrips</h3>
+                    <p>Descoperă lumea cu noi și creează amintiri de neuitat. Oferim cele mai bune experiențe de călătorie personalizate după nevoile tale.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Link-uri Rapide</h3>
+                    <p><a href="about.html">Despre Noi</a></p>
+                    <p><a href="destinations.html">Destinații</a></p>
+                    <p><a href="gallery.html">Galerie</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@madatrips.ro</p>
+                    <p>Telefon: +40 123 456 789</p>
+                    <p>Adresă: București, România</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MadaTrips. Toate drepturile rezervate.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Buttons -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn scroll-to-top" style="display: none;" aria-label="Scroll to top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </button>
+        <button class="scroll-btn scroll-to-bottom" style="display: none;" aria-label="Scroll to bottom">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+        // Gallery data
+        const galleryItems = [
+            {
+                id: 1,
+                title: 'Carpații Românești',
+                location: 'România',
+                image: '../assets/destination-mountains.jpg',
+                category: 'Munte'
+            },
+            {
+                id: 2,
+                title: 'București Cultural',
+                location: 'România',
+                image: '../assets/destination-city.jpg',
+                category: 'Oraș'
+            },
+            {
+                id: 3,
+                title: 'Delta Dunării',
+                location: 'România',
+                image: '../assets/destination-jungle.jpg',
+                category: 'Natură'
+            },
+            {
+                id: 4,
+                title: 'Sahara Magică',
+                location: 'Maroc',
+                image: '../assets/destination-desert.jpg',
+                category: 'Desert'
+            },
+            {
+                id: 5,
+                title: 'Litoralul Românesc',
+                location: 'România',
+                image: '../assets/destination-coast.jpg',
+                category: 'Coastă'
+            },
+            {
+                id: 6,
+                title: 'Alpii Elvețieni',
+                location: 'Elveția',
+                image: '../assets/destination-mountains.jpg',
+                category: 'Munte'
+            },
+            {
+                id: 7,
+                title: 'Praga Istorică',
+                location: 'Republica Cehă',
+                image: '../assets/destination-city.jpg',
+                category: 'Oraș'
+            },
+            {
+                id: 8,
+                title: 'Coasta Amalfi',
+                location: 'Italia',
+                image: '../assets/destination-coast.jpg',
+                category: 'Coastă'
+            },
+            {
+                id: 9,
+                title: 'Plaja Tropicală',
+                location: 'Thailanda',
+                image: '../assets/hero-beach.jpg',
+                category: 'Coastă'
+            }
+        ];
+
+        let currentImageIndex = 0;
+        let filteredItems = galleryItems;
+
+        // Initialize gallery
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGallery(galleryItems);
+            initializeFilters();
+            initializeLightbox();
+        });
+
+        function renderGallery(items) {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const galleryItem = createGalleryItem(item, index);
+                grid.appendChild(galleryItem);
+            });
+        }
+
+        function createGalleryItem(item, index) {
+            const div = document.createElement('div');
+            div.className = 'gallery-item animate-on-scroll';
+            div.style.animationDelay = `${index * 0.1}s`;
+            div.onclick = () => openLightbox(item.id);
+
+            div.innerHTML = `
+                <img src="${item.image}" alt="${item.title}" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">${item.title}</div>
+                    <div class="gallery-location">${item.location}</div>
+                </div>
+            `;
+
+            return div;
+        }
+
+        function initializeFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    filterGallery(filter);
+                });
+            });
+        }
+
+        function filterGallery(filter) {
+            if (filter === 'all') {
+                filteredItems = galleryItems;
+            } else {
+                filteredItems = galleryItems.filter(item => item.category === filter);
+            }
+            
+            renderGallery(filteredItems);
+        }
+
+        function initializeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', showPreviousImage);
+            lightboxNext.addEventListener('click', showNextImage);
+
+            // Close lightbox when clicking outside
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (lightbox.classList.contains('active')) {
+                    if (e.key === 'Escape') {
+                        closeLightbox();
+                    } else if (e.key === 'ArrowLeft') {
+                        showPreviousImage();
+                    } else if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    }
+                }
+            });
+        }
+
+        function openLightbox(itemId) {
+            const item = filteredItems.find(item => item.id === itemId);
+            if (!item) return;
+
+            currentImageIndex = filteredItems.findIndex(item => item.id === itemId);
+            
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxLocation = document.getElementById('lightboxLocation');
+
+            lightboxImage.src = item.image;
+            lightboxImage.alt = item.title;
+            lightboxTitle.textContent = item.title;
+            lightboxLocation.textContent = item.location;
+
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showPreviousImage() {
+            currentImageIndex = (currentImageIndex - 1 + filteredItems.length) % filteredItems.length;
+            updateLightboxImage();
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % filteredItems.length;
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            const item = filteredItems[currentImageIndex];
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxLocation = document.getElementById('lightboxLocation');
+
+            lightboxImage.src = item.image;
+            lightboxImage.alt = item.title;
+            lightboxTitle.textContent = item.title;
+            lightboxLocation.textContent = item.location;
+        }
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - MadaTrips</title>
+    <meta name="description" content="Contactează-ne pentru a planifica următoarea ta aventură. Echipa MadaTrips este aici să te ajute să creezi amintiri de neuitat.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/madatrips-logo.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <style>
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .contact-info {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 1rem;
+            height: fit-content;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 3rem;
+            height: 3rem;
+            background: var(--gradient-hero);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .contact-icon svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: white;
+        }
+        
+        .contact-details h4 {
+            margin: 0 0 0.25rem 0;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .contact-details p {
+            margin: 0;
+            color: #6b7280;
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .success-message {
+            color: #059669;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <!-- Logo -->
+                <a href="../index.html" class="nav-logo">
+                    <img src="../assets/madatrips-logo.svg" alt="MadaTrips Logo">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="nav-menu">
+                    <a href="../index.html" class="nav-item">Acasă</a>
+                    <a href="about.html" class="nav-item">Despre Noi</a>
+                    <a href="destinations.html" class="nav-item">Destinații</a>
+                    <a href="gallery.html" class="nav-item">Galerie</a>
+                    <a href="contact.html" class="nav-item active">Contact</a>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="nav-actions">
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn btn btn-ghost" aria-label="Toggle mobile menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12h18M3 6h18M3 18h18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu">
+                <a href="../index.html" class="nav-item">Acasă</a>
+                <a href="about.html" class="nav-item">Despre Noi</a>
+                <a href="destinations.html" class="nav-item">Destinații</a>
+                <a href="gallery.html" class="nav-item">Galerie</a>
+                <a href="contact.html" class="nav-item active">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen" style="padding-top: 4rem;">
+        <!-- Hero Section -->
+        <section class="hero" style="height: 50vh;">
+            <div class="hero-bg">
+                <img src="../assets/destination-city.jpg" alt="Contact MadaTrips">
+                <div class="hero-overlay"></div>
+            </div>
+
+            <div class="hero-content">
+                <div class="container">
+                    <h1 class="hero-title">Contactează-ne</h1>
+                    <p class="hero-subtitle">
+                        Suntem aici să te ajutăm să planifici următoarea ta aventură
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-20">
+            <div class="container">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="animate-on-scroll">
+                        <h2 class="font-['Playfair_Display'] text-3xl font-bold mb-6">Trimite-ne un Mesaj</h2>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Numele complet *</label>
+                                <input type="text" id="name" name="name" class="form-input" required>
+                                <div class="error-message" id="nameError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label">Adresa de email *</label>
+                                <input type="email" id="email" name="email" class="form-input" required>
+                                <div class="error-message" id="emailError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Numărul de telefon</label>
+                                <input type="tel" id="phone" name="phone" class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="destination" class="form-label">Destinația de interes</label>
+                                <select id="destination" name="destination" class="form-input">
+                                    <option value="">Selectează o destinație</option>
+                                    <option value="carpati-romania">Carpații Românești</option>
+                                    <option value="bucuresti-cultural">București Cultural</option>
+                                    <option value="delta-dunarii">Delta Dunării</option>
+                                    <option value="sahara-desert">Sahara Magică</option>
+                                    <option value="litoral-romanesc">Litoralul Românesc</option>
+                                    <option value="alpi-swiss">Alpii Elvețieni</option>
+                                    <option value="praga-istoric">Praga Istorică</option>
+                                    <option value="coasta-amalfi">Coasta Amalfi</option>
+                                    <option value="alta">Altă destinație</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="travelers" class="form-label">Numărul de călători</label>
+                                <select id="travelers" name="travelers" class="form-input">
+                                    <option value="">Selectează numărul</option>
+                                    <option value="1">1 persoană</option>
+                                    <option value="2">2 persoane</option>
+                                    <option value="3-4">3-4 persoane</option>
+                                    <option value="5-8">5-8 persoane</option>
+                                    <option value="9+">9+ persoane</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="budget" class="form-label">Bugetul estimat (per persoană)</label>
+                                <select id="budget" name="budget" class="form-input">
+                                    <option value="">Selectează bugetul</option>
+                                    <option value="500-1000">€500 - €1,000</option>
+                                    <option value="1000-2000">€1,000 - €2,000</option>
+                                    <option value="2000-3000">€2,000 - €3,000</option>
+                                    <option value="3000+">€3,000+</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">Mesajul tău *</label>
+                                <textarea id="message" name="message" class="form-textarea" placeholder="Spune-ne despre dorințele tale pentru această călătorie..." required></textarea>
+                                <div class="error-message" id="messageError"></div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                                Trimite Mesajul
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="animate-on-scroll">
+                        <h2 class="font-['Playfair_Display'] text-3xl font-bold mb-6">Informații de Contact</h2>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Email</h4>
+                                    <p>info@madatrips.ro</p>
+                                    <p>rezervari@madatrips.ro</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Telefon</h4>
+                                    <p>+40 123 456 789</p>
+                                    <p>+40 987 654 321</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Adresă</h4>
+                                    <p>Strada Călătorilor, Nr. 123</p>
+                                    <p>București, România</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12,6 12,12 16,14"/>
+                                    </svg>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Program</h4>
+                                    <p>Luni - Vineri: 09:00 - 18:00</p>
+                                    <p>Sâmbătă: 10:00 - 16:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Map -->
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2851.123456789!2d26.1025!3d44.4268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b201ff%3A0x1234567890abcdef!2sBucure%C8%99ti%2C%20Rom%C3%A2nia!5e0!3m2!1sro!2sro!4v1234567890123!5m2!1sro!2sro"
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 bg-muted/30">
+            <div class="container">
+                <div class="text-center mb-16 animate-on-scroll">
+                    <h2 class="font-['Playfair_Display'] text-4xl font-bold mb-4">Întrebări Frecvente</h2>
+                    <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+                        Răspunsuri la cele mai comune întrebări despre serviciile noastre
+                    </p>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-xl p-6 shadow-card animate-on-scroll">
+                            <h3 class="text-xl font-semibold mb-3">Cât timp înainte trebuie să fac rezervarea?</h3>
+                            <p class="text-muted-foreground">Recomandăm să faceți rezervarea cu cel puțin 2-3 săptămâni înainte de data dorită pentru călătorie. Pentru destinații populare sau în sezonul de vârf, este indicat să rezervați cu 1-2 luni înainte.</p>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 shadow-card animate-on-scroll" style="animation-delay: 0.1s;">
+                            <h3 class="text-xl font-semibold mb-3">Ce include prețul călătoriei?</h3>
+                            <p class="text-muted-foreground">Prețul include cazarea, transportul, ghidul local, activitățile programate și micul dejun. Mesele suplimentare, cheltuielile personale și asigurarea de călătorie nu sunt incluse în preț.</p>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 shadow-card animate-on-scroll" style="animation-delay: 0.2s;">
+                            <h3 class="text-xl font-semibold mb-3">Pot anula rezervarea?</h3>
+                            <p class="text-muted-foreground">Da, puteți anula rezervarea conform politicii noastre de anulare. Pentru anulări cu mai mult de 14 zile înainte de plecare, veți primi rambursarea completă. Pentru anulări mai apropiate, se aplică taxe de anulare.</p>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 shadow-card animate-on-scroll" style="animation-delay: 0.3s;">
+                            <h3 class="text-xl font-semibold mb-3">Oferiți asigurare de călătorie?</h3>
+                            <p class="text-muted-foreground">Nu oferim direct asigurare de călătorie, dar vă putem recomanda parteneri de încredere pentru asigurarea de călătorie. Este foarte important să aveți asigurare de călătorie pentru orice călătorie în străinătate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MadaTrips</h3>
+                    <p>Descoperă lumea cu noi și creează amintiri de neuitat. Oferim cele mai bune experiențe de călătorie personalizate după nevoile tale.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Link-uri Rapide</h3>
+                    <p><a href="about.html">Despre Noi</a></p>
+                    <p><a href="destinations.html">Destinații</a></p>
+                    <p><a href="gallery.html">Galerie</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@madatrips.ro</p>
+                    <p>Telefon: +40 123 456 789</p>
+                    <p>Adresă: București, România</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MadaTrips. Toate drepturile rezervate.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Buttons -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn scroll-to-top" style="display: none;" aria-label="Scroll to top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </button>
+        <button class="scroll-btn scroll-to-bottom" style="display: none;" aria-label="Scroll to bottom">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+        // Contact form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Clear previous errors
+                clearErrors();
+                
+                // Get form data
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                
+                // Validate form
+                if (validateForm(data)) {
+                    // Simulate form submission
+                    submitForm(data);
+                }
+            });
+        });
+
+        function validateForm(data) {
+            let isValid = true;
+            
+            // Validate name
+            if (!data.name || data.name.trim().length < 2) {
+                showError('nameError', 'Numele trebuie să aibă cel puțin 2 caractere.');
+                isValid = false;
+            }
+            
+            // Validate email
+            if (!data.email || !isValidEmail(data.email)) {
+                showError('emailError', 'Vă rugăm să introduceți o adresă de email validă.');
+                isValid = false;
+            }
+            
+            // Validate message
+            if (!data.message || data.message.trim().length < 10) {
+                showError('messageError', 'Mesajul trebuie să aibă cel puțin 10 caractere.');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(element => {
+                element.textContent = '';
+            });
+        }
+
+        function submitForm(data) {
+            // Simulate form submission
+            const submitButton = document.querySelector('#contactForm button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            submitButton.innerHTML = 'Se trimite...';
+            submitButton.disabled = true;
+            
+            setTimeout(() => {
+                // Reset form
+                document.getElementById('contactForm').reset();
+                
+                // Reset button
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                
+                // Show success message
+                if (window.MadaTrips && window.MadaTrips.showNotification) {
+                    window.MadaTrips.showNotification('Mesajul a fost trimis cu succes! Vă vom contacta în curând.', 'success');
+                } else {
+                    alert('Mesajul a fost trimis cu succes! Vă vom contacta în curând.');
+                }
+            }, 2000);
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</body>
+</html>
+
+

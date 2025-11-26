@@ -1,0 +1,28 @@
+<svg width="200" height="80" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="160" cy="40" r="35" fill="url(#gradient)" opacity="0.1"/>
+  
+  <!-- Airplane icon -->
+  <g transform="translate(140, 20)">
+    <path d="M20 20L35 15L40 20L35 25L20 20Z" fill="#0f766e"/>
+    <path d="M15 18L20 20L15 22L10 20L15 18Z" fill="#0f766e"/>
+    <path d="M35 15L40 10L42 12L37 17L35 15Z" fill="#14b8a6"/>
+    <path d="M35 25L37 27L42 22L40 20L35 25Z" fill="#14b8a6"/>
+    <circle cx="25" cy="20" r="2" fill="#ffffff"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="10" y="35" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#0f766e">Mada</text>
+  <text x="10" y="60" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#14b8a6">Trips</text>
+  
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f766e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
+
+
+

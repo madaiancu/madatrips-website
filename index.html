@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/favicon-32x32.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MadaTrips - Descoperă Următoarea Ta Aventură</title>
+    <meta name="description" content="Explorează destinații spectaculoase din întreaga lume cu MadaTrips. Experiențe de călătorie premium, itinerarii personalizate și amintiri de neuitat te așteaptă." />
+    <meta name="author" content="MadaTrips" />
+    <meta name="keywords" content="călătorii, destinații, aventuri, vacanțe, turism, explorare, România, MadaTrips" />
+
+    <meta property="og:title" content="MadaTrips - Descoperă Următoarea Ta Aventură" />
+    <meta property="og:description" content="Explorează destinații spectaculoase din întreaga lume cu MadaTrips." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/src/assets/madatrips-logo.svg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@madatrips" />
+    <meta name="twitter:image" content="/src/assets/madatrips-logo.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YGRJS7ZD5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-4YGRJS7ZD5', {
+        page_title: 'MadaTrips - Descoperă Următoarea Ta Aventură',
+        custom_map: {
+          'custom_parameter_1': 'travel_website'
+        },
+        debug_mode: true
+      });
+      
+      // Test event pentru debugging
+      gtag('event', 'page_view_test', {
+        'event_category': 'test',
+        'event_label': 'analytics_working'
+      });
+      
+      // Helper function for tracking events
+      window.trackEvent = function(action, category, label) {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', action, {
+            'event_category': category,
+            'event_label': label,
+            'custom_parameter_1': 'madatrips'
+          });
+        }
+      };
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
